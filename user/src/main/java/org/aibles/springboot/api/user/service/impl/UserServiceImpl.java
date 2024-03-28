@@ -48,9 +48,8 @@ public class UserServiceImpl implements UserService {
                 .map(user -> new UserResponse(user.getId(), user.getUsername(), user.getEmail()))
                 .collect(Collectors.toList());
     }
-
     @Override
-    @Transactional(readOnly = true, timeout = 30)
+    @Transactional(readOnly = true)
     public UserResponse getUserById(Long id) throws UserNotFound {
         log.info("GET USER WITH ID: {}",id);
         Optional<User> optionalUser = userRepository.findById(id);
@@ -61,7 +60,6 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFound("User not found with id: " + id);
         }
     }
-
     @Override
     @Transactional(readOnly = false)
     public UserResponse updateUser(Long id, UserRequest userRequest) throws UserNotFound {
