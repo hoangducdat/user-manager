@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, timeout = 30)
     public UserResponse getUserById(Long id) throws UserNotFound {
         log.info("GET USER WITH ID: {}",id);
         Optional<User> optionalUser = userRepository.findById(id);
